@@ -1,5 +1,6 @@
 package com.neraize.jmfirstproject
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -26,6 +27,15 @@ class SignInActivity : BaseActivity() {
 
     override fun SetupEvents() {
 
+        // 회원가입
+        binding.btnSignUp.setOnClickListener {
+
+            val myIntent = Intent(mContextt, SignUpActivity::class.java)
+            startActivity(myIntent)
+        }
+
+
+        // 로그인
         binding.btnLogin.setOnClickListener {
 
             val inputId = binding.edtId.text.toString()
