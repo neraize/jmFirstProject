@@ -65,9 +65,18 @@ class SignInActivity : BaseActivity() {
             })
 
         }
+
+        //  체크박스의 체크여부가 변경되면 -> ContextUtil이용하여 체크값 저장
+         binding.ckboxAutoLogin.setOnCheckedChangeListener { compoundButton, isChecked ->
+
+             // Log.d("체크값변경", "${ isChecked}로 변경")
+             ContextUtil.setAutoLogin(mContextt, isChecked)
+         }
     }
 
     override fun SetValues() {
 
+        // 자동로그인 체크박스 체크여부 반영
+        binding.ckboxAutoLogin.isChecked = ContextUtil.getAutoLogin(mContextt)
     }
 }
