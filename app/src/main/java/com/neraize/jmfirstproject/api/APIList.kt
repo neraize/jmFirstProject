@@ -3,9 +3,7 @@ package com.neraize.jmfirstproject.api
 import com.neraize.jmfirstproject.datas.BasicResponse
 import org.json.JSONObject
 import retrofit2.Call
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface APIList {
 
@@ -37,4 +35,18 @@ interface APIList {
 //        "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MTE1LCJlbWFpbCI6InRlc3QxMUBuYXZlci5jb20iLCJwYXNzd29yZCI6IjBjYzkwNTA1YmJmYTU0ZDQzZTNkMWQ5MmJkOGU2NjVmIn0.n9YThkarTKL5rzt2B7_j6FQwkzQCMGZa6I1AQK-XNRz4rZCcz62WxOQZQOGn2zzw79H2CdZXq8bp-NwhX9tdTA"
 //    }
 //    }
+
+    @FormUrlEncoded
+    @PUT("/user")
+    fun postRequestSignUp(
+        @Field("email") email:String,
+        @Field("password") password: String,
+        @Field("nick_name") nickname:String,
+    ):Call<BasicResponse>
+
+
+    @GET("/user")
+    fun getRequestMyInfo(
+        @Header("X-Http-Token") token:String,
+    ) :Call<BasicResponse>
 }

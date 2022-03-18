@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.neraize.jmfirstproject.databinding.ActivitySignInBinding
 import com.neraize.jmfirstproject.datas.BasicResponse
+import com.neraize.jmfirstproject.utils.ContextUtil
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
@@ -46,7 +47,14 @@ class SignInActivity : BaseActivity() {
 
                     if(response.isSuccessful){
                         var br =  response.body()!!
-                        Toast.makeText(mContextt, "${br.data.user.nick_name}님, 환영합니다ㅅ", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(mContextt, "${br.data.user.nick_name}님, 환영합니다", Toast.LENGTH_SHORT).show()
+
+                        ContextUtil.setLoginUserToken(mContextt, br.data.token)
+
+                        val myIntent = Intent(mContextt, MainActivity::class.java)
+                        startActivity(myIntent)
+
+                        finish()
                     }
                 }
 
