@@ -10,7 +10,64 @@
         android:gravity="center"
         tools:context=".SignUpActivity">
 
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginBottom="20dp"
+            android:src="@drawable/signup_icon"/>
+<!--        https://www.iconfinder.com/search?q=signup&price=free&license=gte__1-->
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
+            <EditText
+                android:id="@+id/edtId"
+                android:layout_width="0dp"
+                android:layout_weight="@integer/material_motion_duration_long_1"
+                android:layout_height="wrap_content"
+                android:paddingVertical="20dp"
+                android:hint="아이디(이메일주소)"
+                android:inputType="textEmailAddress"/>
+
+            <Button
+                android:id="@+id/btnIdDupCheck"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/green"
+                android:text="중복확인"/>
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/edtPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="20dp"
+            android:hint="비밀번호"
+            android:inputType="textPassword"/>
+
+        <EditText
+            android:id="@+id/edtPasswordCheck"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="20dp"
+            android:hint="비밀번호 확인"
+            android:inputType="textPassword"/>
+
+        <EditText
+            android:id="@+id/edtNickname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="20dp"
+            android:hint="닉네임"
+            android:singleLine="true"/>
+
+        <Button
+            android:id="@+id/btnSignUp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/green"
+            android:text="회원가입"/>
     </LinearLayout>
 </layout>
