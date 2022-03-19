@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/travelOk"
+        android:title="여행가능"
+        android:icon="@drawable/travel_ok_icon"/>
+
+    <item
+        android:id="@+id/domesticQuarantine"
+        android:title="국내격리"
+        android:icon="@drawable/domestic_quaratine_icon"/>
+
+    <item
+        android:id="@+id/domesticAndForeignQuarantine"
+        android:title="국내/국외격리"
+        android:icon="@drawable/domestic_and_foreign_quarantine_icon"/>
+
+    <item
+        android:id="@+id/prohibitionOfEntry"
+        android:title="입국금지"
+        android:icon="@drawable/prohibition_of_entry"/>
+</menu>

@@ -9,10 +9,16 @@
         android:padding="10dp"
         tools:context=".MainActivity">
 
-        <TextView
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/mainViewPager2"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/mainBotoomNavigation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="테스트"/>
-
+            app:menu="@menu/menu_for_main_bottom_navigation"/>
     </LinearLayout>
 </layout>
