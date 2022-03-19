@@ -3,19 +3,17 @@ package com.neraize.jmfirstproject.adapers
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.neraize.jmfirstproject.fragments.DomesticAndForeignQuarantineFragment
-import com.neraize.jmfirstproject.fragments.DomesticQuarantineFragment
-import com.neraize.jmfirstproject.fragments.ProhibitionOfEntryFragment
-import com.neraize.jmfirstproject.fragments.TravelOkFragment
+import com.neraize.jmfirstproject.fragments.*
 
 class MainViewPager2Adapter(fa:FragmentActivity):FragmentStateAdapter(fa) {
-    override fun getItemCount() = 4
+    override fun getItemCount() = 5
 
     override fun createFragment(position: Int): Fragment {
         return when(position){
-            0-> TravelOkFragment()
-            1-> DomesticQuarantineFragment()
-            2-> DomesticAndForeignQuarantineFragment()
+            0-> TravelMapAllFragment()
+            1-> TravelOkFragment()
+            2-> DomesticQuarantineFragment()
+            3-> DomesticAndForeignQuarantineFragment()
             else-> ProhibitionOfEntryFragment()
         }
     }

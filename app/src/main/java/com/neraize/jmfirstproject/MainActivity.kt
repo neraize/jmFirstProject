@@ -33,9 +33,10 @@ class MainActivity : BaseActivity() {
         binding.mainBotoomNavigation.setOnItemSelectedListener {
 
             when(it.itemId){
-                R.id.travelOk -> binding.mainViewPager2.currentItem=0
-                R.id.domesticQuarantine -> binding.mainViewPager2.currentItem=1
-                R.id.domesticAndForeignQuarantine -> binding.mainViewPager2.currentItem=2
+                R.id.travelMapAll -> binding.mainViewPager2.currentItem=0
+                R.id.travelOk -> binding.mainViewPager2.currentItem=1
+                R.id.domesticQuarantine -> binding.mainViewPager2.currentItem=2
+                R.id.domesticAndForeignQuarantine -> binding.mainViewPager2.currentItem=3
                 R.id.prohibitionOfEntry -> binding.mainViewPager2.currentItem=4
             }
             return@setOnItemSelectedListener true
@@ -48,9 +49,10 @@ class MainActivity : BaseActivity() {
                 super.onPageSelected(position)
 
                 binding.mainBotoomNavigation.selectedItemId = when(position){
-                    0-> R.id.travelOk
-                    1-> R.id.domesticQuarantine
-                    2-> R.id.domesticAndForeignQuarantine
+                    0-> R.id.travelMapAll
+                    1-> R.id.travelOk
+                    2-> R.id.domesticQuarantine
+                    3-> R.id.domesticAndForeignQuarantine
                     else->R.id.prohibitionOfEntry
                 }
             }

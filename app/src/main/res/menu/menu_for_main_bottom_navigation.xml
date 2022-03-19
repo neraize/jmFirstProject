@@ -2,6 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/travelMapAll"
+        android:title="모두보기"
+        android:icon="@drawable/airplane_black_icon"/>
+
+    <item
         android:id="@+id/travelOk"
         android:title="여행가능"
         android:icon="@drawable/travel_ok_icon"/>
