@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AlertDialog
@@ -52,6 +53,8 @@ abstract class BaseActivity:AppCompatActivity() {
 
         // 로그아웃
         txtLogOut = defaultActionBar.customView.findViewById(R.id.txtLogOut)
+
+        txtLogOut.visibility = View.GONE
 
         txtLogOut.setOnClickListener {
             val alert =  AlertDialog.Builder(mContextt)

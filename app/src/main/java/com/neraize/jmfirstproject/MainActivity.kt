@@ -2,6 +2,7 @@ package com.neraize.jmfirstproject
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.databinding.DataBindingUtil
 import com.neraize.jmfirstproject.databinding.ActivityMainBinding
 import com.neraize.jmfirstproject.datas.BasicResponse
@@ -27,6 +28,9 @@ class MainActivity : BaseActivity() {
     }
 
     override fun SetValues() {
+
+        // 로그아웃 버튼보이기
+        txtLogOut.visibility = View.VISIBLE
 
         apiList.getRequestMyInfo(ContextUtil.getLoginUserToken(mContextt)).enqueue(object :Callback<BasicResponse>{
             override fun onResponse(call: Call<BasicResponse>, response: Response<BasicResponse>) {
