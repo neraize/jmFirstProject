@@ -14,6 +14,7 @@
         android:text="해외여행 알리미"/>
 
     <TextView
+        android:id="@+id/txtLogOut"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/white"
