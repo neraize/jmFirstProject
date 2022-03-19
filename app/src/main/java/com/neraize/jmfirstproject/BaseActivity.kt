@@ -5,6 +5,7 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AlertDialog
@@ -24,6 +25,7 @@ abstract class BaseActivity:AppCompatActivity() {
     // 액션바의 UI변수를 멤버변수로 -> 상속가능
     // 커스텀 액션바 생성뒤에 변수에 대입
     lateinit var txtLogOut:TextView
+    lateinit var imgHome:ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,6 +52,10 @@ abstract class BaseActivity:AppCompatActivity() {
         // 액션바 좌우 여백 제거
         val toolbar = defaultActionBar.customView.parent as Toolbar
         toolbar.setContentInsetsAbsolute(0,0)
+
+        // 홈이미지버튼
+        imgHome = defaultActionBar.customView.findViewById(R.id.imgHome)
+        imgHome.visibility = View.GONE
 
         // 로그아웃
         txtLogOut = defaultActionBar.customView.findViewById(R.id.txtLogOut)

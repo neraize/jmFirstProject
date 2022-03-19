@@ -29,6 +29,8 @@ class MainActivity : BaseActivity() {
 
     override fun SetValues() {
 
+        // 홈이미지 버튼 보이기
+        imgHome.visibility = View.VISIBLE
         // 로그아웃 버튼보이기
         txtLogOut.visibility = View.VISIBLE
 

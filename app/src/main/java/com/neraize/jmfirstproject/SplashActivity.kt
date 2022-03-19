@@ -52,11 +52,11 @@ class SplashActivity : BaseActivity() {
 
             if(userAutoLogin && isTokenOk){
                 myIntent = Intent(mContextt, MainActivity::class.java)
-                Toast.makeText(mContextt, "성공", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(mContextt, "성공", Toast.LENGTH_SHORT).show()
             }
             else{
                 myIntent = Intent(mContextt, SignInActivity::class.java)
-                Toast.makeText(mContextt, "실패", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(mContextt, "실패", Toast.LENGTH_SHORT).show()
             }
             startActivity(myIntent)
             finish()
