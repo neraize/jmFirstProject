@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.databinding.DataBindingUtil
+import androidx.viewpager2.widget.ViewPager2
+import com.neraize.jmfirstproject.adapers.MainViewPager2Adapter
 import com.neraize.jmfirstproject.databinding.ActivityMainBinding
 import com.neraize.jmfirstproject.datas.BasicResponse
 import com.neraize.jmfirstproject.utils.ContextUtil
@@ -15,6 +17,8 @@ class MainActivity : BaseActivity() {
 
     lateinit var binding : ActivityMainBinding
 
+    lateinit var mAdpapter:MainViewPager2Adapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
@@ -25,6 +29,34 @@ class MainActivity : BaseActivity() {
 
     override fun SetupEvents() {
 
+        // 바텀네비게이션 메뉴 선택시 -> 뷰페이저의 페이지 이동
+        binding.mainBotoomNavigation.setOnItemSelectedListener {
+
+            when(it.itemId){
+                R.id.travelOk -> binding.mainViewPager2.currentItem=0
+                R.id.domesticQuarantine -> binding.mainViewPager2.currentItem=1
+                R.id.domesticAndForeignQuarantine -> binding.mainViewPager2.currentItem=2
+                R.id.prohibitionOfEntry -> binding.mainViewPager2.currentItem=4
+            }
+            return@setOnItemSelectedListener true
+        }
+        // 뷰페이지의 페이지 변경시 -> 바텀 네비게이션의 메뉴선택도 변경
+        binding.mainViewPager2.registerOnPageChangeCallback(object :ViewPager2.OnPageChangeCallback(){
+
+            //  추상메소드 x -> 이벤트처리 함수를 직접 오버라이딩해야함!
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+
+                binding.mainBotoomNavigation.selectedItemId = when(position){
+                    0-> R.id.travelOk
+                    1-> R.id.domesticQuarantine
+                    2-> R.id.domesticAndForeignQuarantine
+                    else->R.id.prohibitionOfEntry
+                }
+            }
+        })
+
+        //
     }
 
     override fun SetValues() {
@@ -46,5 +78,8 @@ class MainActivity : BaseActivity() {
 
             }
         })
+
+        //어댑터연결
+        binding.mainViewPager2.adapter = MainViewPager2Adapter(this)
     }
 }
