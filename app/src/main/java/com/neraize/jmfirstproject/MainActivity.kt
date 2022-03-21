@@ -2,12 +2,15 @@ package com.neraize.jmfirstproject
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.viewpager2.widget.ViewPager2
+import com.google.firebase.database.*
 import com.neraize.jmfirstproject.adapers.MainViewPager2Adapter
 import com.neraize.jmfirstproject.databinding.ActivityMainBinding
 import com.neraize.jmfirstproject.datas.BasicResponse
+import com.neraize.jmfirstproject.datas.CountryData
 import com.neraize.jmfirstproject.utils.ContextUtil
 import retrofit2.Call
 import retrofit2.Callback
@@ -83,5 +86,58 @@ class MainActivity : BaseActivity() {
 
         //어댑터연결
         binding.mainViewPager2.adapter = MainViewPager2Adapter(this)
+
+        val database = FirebaseDatabase.getInstance()
+
+//        방법1>
+//        val myRef = database.getReference("country").child("1").child("name")
+
+//        방법2>
+        val myRef = database.getReference("country")
+        val mCountryList = ArrayList<CountryData>()
+
+
+        myRef.addValueEventListener(object :ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+
+                val snapshotSize = snapshot.childrenCount -1
+
+//               방법1>
+//                val temp =snapshot.value
+//                Log.d("확인1", temp.toString())
+
+
+//                방법2>
+//                val id = snapshot.child("0").child("id").value
+//                val name = snapshot.child("0").child("name").value
+//                val possibility = snapshot.child("0").child("possibility").value
+//                val information = snapshot.child("information").value
+//                val latitude = snapshot.child("latitude").value
+//                val longitude = snapshot.child("longitude").value
+//                Log.d("확인2", "${id.toString()},  ${name.toString()}, ${possibility.toString()}")
+
+//              방법3>
+//                mCountryList.addAll(snapshot.value as ArrayList<CountryData>)
+//                Log.d("확인3", mCountryList[0].toString())
+//                Log.d("확인3", mCountryList[1].toString())
+
+//                방법4>
+                for(i in 0 .. snapshotSize){
+
+                    val id = snapshot.child(i.toString()).child("id").value
+                    val name = snapshot.child(i.toString()).child("name").value
+                    val possibility = snapshot.child(i.toString()).child("possibility").value
+                    Log.d("확인2", "${id.toString()},  ${name.toString()}, ${possibility.toString()}")
+                }
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+
+        })
+
+
     }
 }
