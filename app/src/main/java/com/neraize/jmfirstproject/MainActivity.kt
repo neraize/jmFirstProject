@@ -87,57 +87,65 @@ class MainActivity : BaseActivity() {
         //어댑터연결
         binding.mainViewPager2.adapter = MainViewPager2Adapter(this)
 
+
+        // 파이어 베이스 디비연결
         val database = FirebaseDatabase.getInstance()
-
-//        방법1>
-//        val myRef = database.getReference("country").child("1").child("name")
-
-//        방법2>
         val myRef = database.getReference("country")
-        val mCountryList = ArrayList<CountryData>()
 
+        val mCountryList = ArrayList<CountryData>()
+        val mCountryTravelOKList = ArrayList<CountryData>()
+        val mCountryDomesticList = ArrayList<CountryData>()
+        val mCountryDomesticAndForeignList = ArrayList<CountryData>()
+        val mCountryProhibitionList = ArrayList<CountryData>()
 
         myRef.addValueEventListener(object :ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
 
                 val snapshotSize = snapshot.childrenCount -1
 
-//               방법1>
-//                val temp =snapshot.value
-//                Log.d("확인1", temp.toString())
-
-
-//                방법2>
-//                val id = snapshot.child("0").child("id").value
-//                val name = snapshot.child("0").child("name").value
-//                val possibility = snapshot.child("0").child("possibility").value
-//                val information = snapshot.child("information").value
-//                val latitude = snapshot.child("latitude").value
-//                val longitude = snapshot.child("longitude").value
-//                Log.d("확인2", "${id.toString()},  ${name.toString()}, ${possibility.toString()}")
-
-//              방법3>
-//                mCountryList.addAll(snapshot.value as ArrayList<CountryData>)
-//                Log.d("확인3", mCountryList[0].toString())
-//                Log.d("확인3", mCountryList[1].toString())
-
-//                방법4>
                 for(i in 0 .. snapshotSize){
 
-                    val id = snapshot.child(i.toString()).child("id").value
-                    val name = snapshot.child(i.toString()).child("name").value
-                    val possibility = snapshot.child(i.toString()).child("possibility").value
-                    Log.d("확인2", "${id.toString()},  ${name.toString()}, ${possibility.toString()}")
+                    val id = (snapshot.child(i.toString()).child("id").value).toString().toInt()
+                    val name = (snapshot.child(i.toString()).child("name").value).toString()
+                    val possibility = (snapshot.child(i.toString()).child("possibility").value).toString()
+                    val information = (snapshot.child(i.toString()).child("information").value).toString()
+                    val latitude = (snapshot.child(i.toString()).child("latitude").value).toString().toDouble()
+                    val longitude = (snapshot.child(i.toString()).child("longitude").value).toString().toDouble()
+
+                    mCountryList.addAll(listOf(CountryData(id, name, possibility, information, latitude, longitude)))
+//                    mCountryList.add(i.toInt(), CountryData(id, name, possibility, information, latitude, longitude))
+//                    Log.d("확인2", "${id.toString()}, ${name.toString()}, ${possibility.toString()}" +
+//                            " ,${information.toString()}, ${latitude.toString()}, ${longitude.toString()} +")
+
+                    when(possibility){
+                        "여행가능"-> mCountryTravelOKList .addAll(listOf(CountryData(id, name, possibility, information, latitude, longitude)))
+                        "국내격리"-> mCountryDomesticList .addAll(listOf(CountryData(id, name, possibility, information, latitude, longitude)))
+                        "국내/국외격리"-> mCountryDomesticAndForeignList .addAll(listOf(CountryData(id, name, possibility, information, latitude, longitude)))
+                        "입국금지"-> mCountryProhibitionList .addAll(listOf(CountryData(id, name, possibility, information, latitude, longitude)))
+                    }
+                }
+
+                mCountryList.forEach { i->
+                    i
+                    Log.d("모두보기", "${i.id}, ${i.name}, ${i.possibility}, ${i.information}, ${i.latitude}, ${i.longitude} ")
+                }
+                mCountryDomesticList.forEach { i->
+                    i
+                    Log.d("국내격리", "${i.id}, ${i.name}, ${i.possibility}, ${i.information}, ${i.latitude}, ${i.longitude} ")
+                }
+                mCountryDomesticAndForeignList.forEach { i->
+                    i
+                    Log.d("국내/국외격리", "${i.id}, ${i.name}, ${i.possibility}, ${i.information}, ${i.latitude}, ${i.longitude} ")
+                }
+                mCountryProhibitionList.forEach { i->
+                    i
+                    Log.d("입국금지", "${i.id}, ${i.name}, ${i.possibility}, ${i.information}, ${i.latitude}, ${i.longitude} ")
                 }
 
             }
-
             override fun onCancelled(error: DatabaseError) {
 
             }
-
         })
-
-
     }
 }
