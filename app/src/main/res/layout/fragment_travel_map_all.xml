@@ -3,15 +3,17 @@
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="center">
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/txtTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="구글지도"
-            android:textSize="25sp"
-            android:textColor="@color/black"/>
+
+        <!-- Activity에서는 fragment로 구현해야되지만
+        Fragment로 구현하기위해서는 MapView를 사용해야함-->
+        <com.google.android.gms.maps.MapView
+            android:id="@+id/map"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:name="com.google.android.gms.maps.MapFragment"
+            />
+
     </LinearLayout>
 </layout>
