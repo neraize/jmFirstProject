@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import com.neraize.jmfirstproject.MainActivity
 import com.neraize.jmfirstproject.api.APIList
 import com.neraize.jmfirstproject.api.ServerAPI
 
@@ -22,6 +23,8 @@ abstract class BaseFragment:Fragment() {
 
         val retrofit = ServerAPI.getRetrofit()
         apiList = retrofit.create(APIList::class.java)
+
+        (mContext as MainActivity).binding.mainViewPager2.isUserInputEnabled = true
     }
 
     abstract fun SetupEvents()

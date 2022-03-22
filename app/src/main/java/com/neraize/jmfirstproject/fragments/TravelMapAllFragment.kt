@@ -11,6 +11,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.neraize.jmfirstproject.MainActivity
 import com.neraize.jmfirstproject.R
 import com.neraize.jmfirstproject.databinding.FragmentTravelMapAllBinding
 
@@ -56,5 +57,14 @@ class TravelMapAllFragment:BaseFragment(), OnMapReadyCallback{
         val marker = LatLng(35.241615, 128.695587)
         mMap.addMarker(MarkerOptions().position(marker).title("Marker LAB"))
         mMap.moveCamera(CameraUpdateFactory.newLatLng(marker))
+
+
+        // 맵 스크롤시, 뷰페이저이동 막기
+        binding.txtScrollHelp.setOnTouchListener { view, motionEvent ->
+
+            (mContext as MainActivity).binding.mainViewPager2.isUserInputEnabled = false
+
+            return@setOnTouchListener false
+        }
     }
 }

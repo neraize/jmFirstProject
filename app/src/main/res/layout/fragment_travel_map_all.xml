@@ -6,14 +6,25 @@
         android:orientation="vertical">
 
 
-        <!-- Activity에서는 fragment로 구현해야되지만
-        Fragment로 구현하기위해서는 MapView를 사용해야함-->
-        <com.google.android.gms.maps.MapView
-            android:id="@+id/map"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:name="com.google.android.gms.maps.MapFragment"
-            />
+            android:layout_height="wrap_content">
+
+            <!-- Activity에서는 fragment로 구현해야되지만
+                Fragment로 구현하기위해서는 MapView를 사용해야함-->
+            <com.google.android.gms.maps.MapView
+                android:id="@+id/map"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:name="com.google.android.gms.maps.MapFragment"/>
+
+            <TextView
+                android:id="@+id/txtScrollHelp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </FrameLayout>
+
 
     </LinearLayout>
 </layout>
