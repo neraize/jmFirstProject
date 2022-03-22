@@ -19,6 +19,9 @@
             android:id="@+id/mainBotoomNavigation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:menu="@menu/menu_for_main_bottom_navigation"/>
+            app:menu="@menu/menu_for_main_bottom_navigation"
+            app:itemTextColor="@color/bottom_navigation_color"
+            app:itemIconTint="@color/bottom_navigation_color"
+            app:labelVisibilityMode="labeled"/>
     </LinearLayout>
 </layout>

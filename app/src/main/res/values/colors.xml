@@ -9,4 +9,11 @@
     <color name="white">#FFFFFFFF</color>
     <color name="green">#14a879</color>
     <color name="pink">#FF7676</color>
+    <color name="blue_bottom">#456ed7</color>
+    <color name="green_bottom">#68d391</color>
+    <color name="yellow_bottom">#f6e05e</color>
+    <color name="red_bottom">#e53e3e</color>
+    <color name="gray_bottom">#777</color>
+
+
 </resources>

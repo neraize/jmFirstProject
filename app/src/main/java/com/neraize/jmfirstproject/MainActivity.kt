@@ -102,7 +102,7 @@ class MainActivity : BaseActivity() {
             override fun onDataChange(snapshot: DataSnapshot) {
 
                 val snapshotSize = snapshot.childrenCount -1
-
+                Log.d("국가수", snapshotSize.toString())
                 for(i in 0 .. snapshotSize){
 
                     val id = (snapshot.child(i.toString()).child("id").value).toString().toInt()
