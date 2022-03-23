@@ -13,12 +13,16 @@
         android:theme="@style/Theme.JmFirstProject"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".PopupActivity"
+            android:theme="@style/Theme.AppCompat.Dialog"
+            android:exported="false" />
+        <activity
             android:name=".SignUpActivity"
             android:exported="false" />
         <activity
             android:name=".SplashActivity"
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -27,7 +31,7 @@
         </activity>
         <activity
             android:name=".SignInActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".MainActivity"
             android:exported="true" />
@@ -35,7 +39,6 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBbOfIYBFxxJ4953x0k9Y0bYfVWsqwRi9M" />
-
     </application>
 
 </manifest>
