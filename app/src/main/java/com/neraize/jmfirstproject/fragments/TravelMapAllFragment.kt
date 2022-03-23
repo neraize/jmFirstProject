@@ -8,12 +8,14 @@ import androidx.databinding.DataBindingUtil
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.neraize.jmfirstproject.MainActivity
 import com.neraize.jmfirstproject.R
+import com.neraize.jmfirstproject.SplashActivity
 import com.neraize.jmfirstproject.databinding.FragmentTravelMapAllBinding
+import retrofit2.http.Url
 
 class TravelMapAllFragment:BaseFragment(), OnMapReadyCallback{
 
@@ -54,10 +56,21 @@ class TravelMapAllFragment:BaseFragment(), OnMapReadyCallback{
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
-        val marker = LatLng(35.241615, 128.695587)
-        mMap.addMarker(MarkerOptions().position(marker).title("Marker LAB"))
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(marker))
 
+
+        SplashActivity.mCountryList.forEach { country->
+
+            val marker = LatLng(country.latitude, country.longitude)
+
+            when(country.possibility){
+                "여행가능" -> mMap.addMarker(MarkerOptions().position(marker).title("").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)))
+                "국내격리" -> mMap.addMarker(MarkerOptions().position(marker).title("").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)))
+                "국내/국외격리" -> mMap.addMarker(MarkerOptions().position(marker).title("").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)))
+                "입국금지" -> mMap.addMarker(MarkerOptions().position(marker).title("").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)))
+            }
+            //Log.d("마커확인", "${ country.latitude }, ${ country.longitude }")
+        }
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(LatLng(35.241615, 128.695587)))
 
         // 맵 스크롤시, 뷰페이저이동 막기
         binding.txtScrollHelp.setOnTouchListener { view, motionEvent ->
