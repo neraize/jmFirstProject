@@ -1,5 +1,7 @@
 package com.neraize.jmfirstproject
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.Window
 import androidx.databinding.DataBindingUtil
@@ -11,9 +13,6 @@ class PopupActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        //타이틀바 없애기??
-
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_popup)
 
@@ -29,5 +28,9 @@ class PopupActivity : BaseActivity() {
 
         val title = intent.getStringExtra("title")
         binding.txtTitle.text = title
+
+        //타이틀바 없애기
+        window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        setTitle(null)
     }
 }
