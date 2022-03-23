@@ -16,7 +16,6 @@ class PopupActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_popup)
-
         SetupEvents()
         SetValues()
     }
@@ -31,7 +30,7 @@ class PopupActivity : BaseActivity() {
         val selectedCountry = intent.getSerializableExtra("selectedCountry") as CountryData
         binding.txtTitle.text = selectedCountry.name
         binding.txtPossibility.text = selectedCountry.possibility
-        binding.txtInfomation.text = selectedCountry.information
+//        binding.txtInfomation.text = selectedCountry.information
         
         when(selectedCountry.possibility){
             "여행가능" -> binding.txtTitle.setBackgroundResource(R.color.blue_bottom)
