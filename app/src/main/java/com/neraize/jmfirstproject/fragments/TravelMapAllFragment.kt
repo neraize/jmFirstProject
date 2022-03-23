@@ -2,6 +2,7 @@ package com.neraize.jmfirstproject.fragments
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -82,16 +83,30 @@ class TravelMapAllFragment:BaseFragment(), OnMapReadyCallback{
         mMap.setOnMarkerClickListener(object :GoogleMap.OnMarkerClickListener{
             override fun onMarkerClick(marker: Marker): Boolean {
 
+                // 알람신청여부 변수설정
+                var isAlarmSet=false
+
+                //
                 SplashActivity.mCountryList.forEach { country->
                     if(country.name == marker.title){
+
+//                        // 선택한 마커의 국가가 => 나의 기존 알람신청리스트에 있는지 여부확인
+//                        (mContext as MainActivity).mAlarmList.forEach { myCountry->
+//                            if (myCountry.pushCountry == marker.title){
+//                                isAlarmSet =true
+//                                Log.d("팝업체크유무", isAlarmSet.toString())
+//                                return true
+//                            }
+//                        }
 
                         val selectedCountry =CountryData(country.id, country.name, country.possibility, country.information, country.latitude, country.longitude)
 
                         //Toast.makeText(mContext, marker.title, Toast.LENGTH_SHORT).show()
                         val myIntent = Intent(mContext as MainActivity, PopupActivity::class.java)
                         myIntent.putExtra("selectedCountry", selectedCountry)
-                        startActivity(myIntent)
+                        myIntent.putExtra("isAlarmSet",isAlarmSet)
 
+                        startActivity(myIntent)
                     }
                 }
 

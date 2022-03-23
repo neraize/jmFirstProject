@@ -3,6 +3,7 @@ package com.neraize.jmfirstproject
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.Window
 import androidx.databinding.DataBindingUtil
 import com.neraize.jmfirstproject.databinding.ActivityPopupBinding
@@ -27,11 +28,21 @@ class PopupActivity : BaseActivity() {
     override fun SetValues() {
 
         // 마커 선택된 나라의 정보 -> 팝업창에 뿌려주기
+        var isAlarmSet = intent.getBooleanExtra("isAlarmSet", false)
+
+        Log.d("팝업체크유무", isAlarmSet.toString())
+        if(isAlarmSet){
+            binding.imgAlarBell.setImageResource(R.drawable.notification_ring_red_icon)
+        }
+        else{
+            binding.imgAlarBell.setImageResource(R.drawable.notification_ring_empty_icon)
+        }
+
         val selectedCountry = intent.getSerializableExtra("selectedCountry") as CountryData
         binding.txtTitle.text = selectedCountry.name
         binding.txtPossibility.text = selectedCountry.possibility
 //        binding.txtInfomation.text = selectedCountry.information
-        
+
         when(selectedCountry.possibility){
             "여행가능" -> binding.txtTitle.setBackgroundResource(R.color.blue_bottom)
             "국내격리" -> binding.txtTitle.setBackgroundResource(R.color.green_bottom)
