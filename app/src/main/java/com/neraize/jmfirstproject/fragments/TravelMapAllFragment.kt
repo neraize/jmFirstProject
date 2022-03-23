@@ -20,6 +20,7 @@ import com.neraize.jmfirstproject.R
 import com.neraize.jmfirstproject.SplashActivity
 import com.neraize.jmfirstproject.databinding.ActivityPopupBinding
 import com.neraize.jmfirstproject.databinding.FragmentTravelMapAllBinding
+import com.neraize.jmfirstproject.datas.CountryData
 import retrofit2.http.Url
 
 class TravelMapAllFragment:BaseFragment(), OnMapReadyCallback{
@@ -81,11 +82,24 @@ class TravelMapAllFragment:BaseFragment(), OnMapReadyCallback{
         mMap.setOnMarkerClickListener(object :GoogleMap.OnMarkerClickListener{
             override fun onMarkerClick(marker: Marker): Boolean {
 
-                //Toast.makeText(mContext, marker.title, Toast.LENGTH_SHORT).show()
-                val myIntent = Intent(mContext as MainActivity, PopupActivity::class.java)
-                myIntent.putExtra("title", marker.title)
-                startActivity(myIntent)
+                SplashActivity.mCountryList.forEach { country->
+                    if(country.name == marker.title){
 
+                        val selectedCountry =CountryData(country.id, country.name, country.possibility, country.information, country.latitude, country.longitude)
+
+                        //Toast.makeText(mContext, marker.title, Toast.LENGTH_SHORT).show()
+                        val myIntent = Intent(mContext as MainActivity, PopupActivity::class.java)
+                        myIntent.putExtra("selectedCountry", selectedCountry)
+                        startActivity(myIntent)
+
+                    }
+                }
+
+//                //Toast.makeText(mContext, marker.title, Toast.LENGTH_SHORT).show()
+//                val myIntent = Intent(mContext as MainActivity, PopupActivity::class.java)
+//                myIntent.putExtra("title", marker.title)
+//                startActivity(myIntent)
+//
                 return true
             }
         })

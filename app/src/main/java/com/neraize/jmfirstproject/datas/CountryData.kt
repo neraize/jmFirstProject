@@ -1,5 +1,7 @@
 package com.neraize.jmfirstproject.datas
 
+import java.io.Serializable
+
 class CountryData(
     val id:Int,
     val name:String,
@@ -8,6 +10,6 @@ class CountryData(
     val latitude:Double,
     val longitude:Double,
 
-) {
+):Serializable {
 
 }
