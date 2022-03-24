@@ -36,7 +36,7 @@ class PopupActivity : BaseActivity() {
         // 마커 선택된 나라의 정보 -> 팝업창에 뿌려주기
         isAlarmSet = intent.getBooleanExtra("isAlarmSet", false)
 
-        Log.d("팝업체크유무", isAlarmSet.toString())
+        Log.d("PopupActivity_팝업체크유무", isAlarmSet.toString())
         if(isAlarmSet){
             binding.imgAlarBell.setImageResource(R.drawable.notification_ring_red_icon)
         }
