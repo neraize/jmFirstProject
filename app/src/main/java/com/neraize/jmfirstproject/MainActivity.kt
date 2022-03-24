@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.viewpager2.widget.ViewPager2
 import com.google.firebase.database.*
 import com.neraize.jmfirstproject.adapers.MainViewPager2Adapter
+import com.neraize.jmfirstproject.api.FirebaseDbConnect
 import com.neraize.jmfirstproject.databinding.ActivityMainBinding
 import com.neraize.jmfirstproject.datas.BasicResponse
 import com.neraize.jmfirstproject.datas.CountryData
@@ -23,7 +24,9 @@ class MainActivity : BaseActivity() {
 
     lateinit var mAdpapter:MainViewPager2Adapter
 
-    var mUserIdReplaceDotToStar=""
+    companion object{
+        lateinit var mUserIdReplaceDotToStar:String
+    }
 
     var mAlarmList = ArrayList<MyAlarmData>()
 
@@ -45,7 +48,10 @@ class MainActivity : BaseActivity() {
 
                     // 문자열 변환 test@naver.com -> test@naver*com
                     mUserIdReplaceDotToStar = (br.data.user.email.toString()).replace(".","*")
-                    //Log.d("아이디",mUserIdReplaceDotToStar)
+
+                    // 파이어베이스 디비 연결
+                    // 디비중에서, 로그인한 이메일주소 기준으로 알람추가한 국가리스트 찾기
+                    mAlarmList = FirebaseDbConnect.getMyAlarmList(mUserIdReplaceDotToStar)
                 }
             }
             override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
@@ -106,36 +112,6 @@ class MainActivity : BaseActivity() {
 
         //어댑터연결
         binding.mainViewPager2.adapter = MainViewPager2Adapter(this)
-
-
-        // 파이어베이스 디비 연결
-        val database = FirebaseDatabase.getInstance()
-
-        // 디비중에서, 로그인한 이메일주소 기준으로 알람추가한 국가리스트 찾기
-        val myRef = database.getReference("alarm")
-
-        myRef.addValueEventListener(object :ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-
-                val snapshotSize = snapshot.child(mUserIdReplaceDotToStar).childrenCount+1
-
-                if(snapshot.hasChild(mUserIdReplaceDotToStar)){
-                    for(i in 0 .. snapshotSize){
-                        val pushCountry = (snapshot.child(mUserIdReplaceDotToStar).child(i.toString()).child("push_country").value).toString()
-
-                        if(pushCountry=="null"){
-                            break
-                        }
-                        //Log.d("알림${i}",pushCountry)
-                        mAlarmList.add(MyAlarmData(pushCountry))
-                    }
-                }
-            }
-            override fun onCancelled(error: DatabaseError) {
-            }
-        })
-
-        //
 
     }
 }

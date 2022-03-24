@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Window
 import androidx.databinding.DataBindingUtil
+import com.neraize.jmfirstproject.api.FirebaseDbConnect
 import com.neraize.jmfirstproject.databinding.ActivityPopupBinding
 import com.neraize.jmfirstproject.datas.CountryData
 
@@ -13,10 +14,15 @@ class PopupActivity : BaseActivity() {
 
     lateinit var binding:ActivityPopupBinding
 
+    val mUserIdReplaceDotToStar = MainActivity.mUserIdReplaceDotToStar
+
+    var isAlarmSet=false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_popup)
+
         SetupEvents()
         SetValues()
     }
@@ -28,7 +34,7 @@ class PopupActivity : BaseActivity() {
     override fun SetValues() {
 
         // 마커 선택된 나라의 정보 -> 팝업창에 뿌려주기
-        var isAlarmSet = intent.getBooleanExtra("isAlarmSet", false)
+        isAlarmSet = intent.getBooleanExtra("isAlarmSet", false)
 
         Log.d("팝업체크유무", isAlarmSet.toString())
         if(isAlarmSet){
@@ -58,9 +64,12 @@ class PopupActivity : BaseActivity() {
         binding.txtClosePopup.setOnClickListener {
             finish()
         }
-        
+
+
         // 알람 온오프
         binding.imgAlarBell.setOnClickListener {
+
+            FirebaseDbConnect.setMyAlarmList(mUserIdReplaceDotToStar,selectedCountry.name ,isAlarmSet)
 
             if(isAlarmSet){
                 isAlarmSet =false
@@ -72,7 +81,6 @@ class PopupActivity : BaseActivity() {
                 binding.imgAlarBell.setImageResource(R.drawable.notification_ring_red_icon)
             }
         }
-        
         
     }
 }
