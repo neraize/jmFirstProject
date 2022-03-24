@@ -58,5 +58,21 @@ class PopupActivity : BaseActivity() {
         binding.txtClosePopup.setOnClickListener {
             finish()
         }
+        
+        // 알람 온오프
+        binding.imgAlarBell.setOnClickListener {
+
+            if(isAlarmSet){
+                isAlarmSet =false
+                binding.imgAlarBell.setImageResource(R.drawable.notification_ring_empty_icon)
+
+            }
+            else{
+                isAlarmSet =true
+                binding.imgAlarBell.setImageResource(R.drawable.notification_ring_red_icon)
+            }
+        }
+        
+        
     }
 }
