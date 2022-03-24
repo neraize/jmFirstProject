@@ -90,14 +90,14 @@ class TravelMapAllFragment:BaseFragment(), OnMapReadyCallback{
                 SplashActivity.mCountryList.forEach { country->
                     if(country.name == marker.title){
 
-//                        // 선택한 마커의 국가가 => 나의 기존 알람신청리스트에 있는지 여부확인
-//                        (mContext as MainActivity).mAlarmList.forEach { myCountry->
-//                            if (myCountry.pushCountry == marker.title){
-//                                isAlarmSet =true
-//                                Log.d("팝업체크유무", isAlarmSet.toString())
-//                                return true
-//                            }
-//                        }
+                        // 선택한 마커의 국가가 => 나의 기존 알람신청리스트에 있는지 여부확인
+                        (mContext as MainActivity).mAlarmList.forEach { myCountry->
+                            if (myCountry.pushCountry == country.name){
+                                isAlarmSet =true
+                                Log.d("팝업체크유무", isAlarmSet.toString())
+                                return@forEach
+                            }
+                        }
 
                         val selectedCountry =CountryData(country.id, country.name, country.possibility, country.information, country.latitude, country.longitude)
 
