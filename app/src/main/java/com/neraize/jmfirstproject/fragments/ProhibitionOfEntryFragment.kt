@@ -6,12 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.neraize.jmfirstproject.R
+import com.neraize.jmfirstproject.SplashActivity
+import com.neraize.jmfirstproject.adapers.MyCountryListAdapter
 import com.neraize.jmfirstproject.databinding.FragmentProhibitionOfEntryBinding
 
 
 class ProhibitionOfEntryFragment:BaseFragment() {
 
     lateinit var binding: FragmentProhibitionOfEntryBinding
+
+    lateinit var mAdapter: MyCountryListAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,5 +39,10 @@ class ProhibitionOfEntryFragment:BaseFragment() {
 
     override fun SetValues() {
 
+        mAdapter = MyCountryListAdapter(mContext, R.layout.my_country_list_item, SplashActivity.mCountryProhibitionList)
+        binding.myCountryListView.adapter = mAdapter
+
+        // 어댑터 새로고침
+        //mAdapter.notifyDataSetChanged()
     }
 }

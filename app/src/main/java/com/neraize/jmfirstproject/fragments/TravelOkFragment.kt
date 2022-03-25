@@ -7,11 +7,15 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.neraize.jmfirstproject.R
+import com.neraize.jmfirstproject.SplashActivity
+import com.neraize.jmfirstproject.adapers.MyCountryListAdapter
 import com.neraize.jmfirstproject.databinding.FragmentTravelOkBinding
 
 class TravelOkFragment:BaseFragment() {
 
     lateinit var binding: FragmentTravelOkBinding
+
+    lateinit var mAdapter: MyCountryListAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,5 +39,10 @@ class TravelOkFragment:BaseFragment() {
 
     override fun SetValues() {
 
+        mAdapter = MyCountryListAdapter(mContext, R.layout.my_country_list_item, SplashActivity.mCountryTravelOKList)
+        binding.myCountryListView.adapter = mAdapter
+
+        // 어댑터 새로고침
+        //mAdapter.notifyDataSetChanged()
     }
 }
