@@ -26,9 +26,11 @@ class MainActivity : BaseActivity() {
 
     companion object{
         lateinit var mUserIdReplaceDotToStar:String
+
+        var mAlarmList = ArrayList<MyAlarmData>()
     }
 
-    var mAlarmList = ArrayList<MyAlarmData>()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

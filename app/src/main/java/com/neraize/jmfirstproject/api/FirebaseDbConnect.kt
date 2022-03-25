@@ -2,8 +2,8 @@ package com.neraize.jmfirstproject.api
 
 import android.util.Log
 import com.google.firebase.database.*
+import com.neraize.jmfirstproject.MainActivity
 import com.neraize.jmfirstproject.datas.MyAlarmData
-import kotlin.math.log
 
 
 class FirebaseDbConnect {
@@ -11,8 +11,8 @@ class FirebaseDbConnect {
 
     companion object{
 
-        var mAlarmList = ArrayList<MyAlarmData>()
         var snapshotLastNum =0L
+        var snapshotSize =0L
 
         // 디비중에서, 로그인한 이메일주소 기준으로 알람추가한 국가리스트 찾기
         fun getMyAlarmList(mUserIdReplaceDotToStar:String) : ArrayList<MyAlarmData>{
@@ -27,7 +27,7 @@ class FirebaseDbConnect {
             myRef.addValueEventListener(object :ValueEventListener{
                 override fun onDataChange(snapshot: DataSnapshot) {
 
-                    val snapshotSize = snapshot.child(mUserIdReplaceDotToStar).childrenCount
+                    snapshotSize = snapshot.child(mUserIdReplaceDotToStar).childrenCount
 
                     Log.d("snapshotSize", snapshotSize.toString())
 
@@ -40,7 +40,7 @@ class FirebaseDbConnect {
                                 break
                             }
                             //Log.d("알림${i}",pushCountry)
-                            mAlarmList.add(MyAlarmData(pushCountry))
+                            MainActivity.mAlarmList.add(MyAlarmData(pushCountry))
                             Log.d("pushCountry", pushCountry.toString())
                         }
                     }
@@ -48,7 +48,7 @@ class FirebaseDbConnect {
                 override fun onCancelled(error: DatabaseError) {
                 }
             })
-            return mAlarmList
+            return MainActivity.mAlarmList
         }
 
 
@@ -67,8 +67,15 @@ class FirebaseDbConnect {
 
             // 해당국가의 알람이 있었던 경우  ->  삭제 함수
             fun deleteAlarm(snapshotNum:Int){
-                Log.d("삭제함수진입", "snapshotLastNum${snapshotLastNum}")
-                myRef.child(mUserIdReplaceDotToStar).child(snapshotNum.toString()).removeValue()
+                Log.d("삭제함수진입", "snapshotLastNum: ${snapshotNum}")
+                myRef.child(mUserIdReplaceDotToStar).child(snapshotNum.toString()).child("push_country").removeValue()
+
+                for (alarm in ArrayList<MyAlarmData>(MainActivity.mAlarmList)) {
+                    if(alarm.pushCountry == selectedCountry ){
+                        MainActivity.mAlarmList.remove(alarm)
+                        break
+                    }
+                }
             }
 
             // 해당국가의 알람이 없었던 경우  ->  추가 함수
@@ -77,7 +84,12 @@ class FirebaseDbConnect {
                 Log.d("추가함수진입", "snapshotLastNum${snapshotLastNum}")
                 myRef.child(mUserIdReplaceDotToStar).child(snapshotLastNum.toString()).child("push_country").setValue(selectedCountry)
                 isAlarmSetForReturn =true
+                MainActivity.mAlarmList.clear()
+                MainActivity.mAlarmList.add(MyAlarmData(selectedCountry))
 
+                MainActivity.mAlarmList.forEach { alarm->
+                    Log.d("FirebaseDbConnect", "알람추가후 리스트현황 ${alarm.pushCountry}")
+                }
             }
 
             if(isAlarmSetForReturn){
@@ -93,7 +105,6 @@ class FirebaseDbConnect {
                             if(pushCountry == selectedCountry){
                                 //삭제함수 실행
                                 deleteAlarm(i.toInt())
-                                mAlarmList.add(MyAlarmData(pushCountry))
                                 isAlarmSetForReturn=false
                                 break
                             }
@@ -104,15 +115,7 @@ class FirebaseDbConnect {
                 })
             }
             else{
-//                myRef.addValueEventListener(object :ValueEventListener{
-//                    override fun onDataChange(snapshot: DataSnapshot) {
-//
-//                        snapshotLastNum = snapshot.child(mUserIdReplaceDotToStar).children.last().key!!.toLong()!!
-//                        Log.d("FirebaseDbConnect", "snapshotLastNum: ${ snapshotLastNum.toString() }")
-//                    }
-//                    override fun onCancelled(error: DatabaseError) {
-//                    }
-//                })
+                //추가함수 실행
                 setAlarm((snapshotLastNum.toInt())+1)
             }
 

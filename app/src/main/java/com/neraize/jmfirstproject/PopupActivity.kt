@@ -70,15 +70,14 @@ class PopupActivity : BaseActivity() {
         binding.imgAlarBell.setOnClickListener {
 
             FirebaseDbConnect.setMyAlarmList(mUserIdReplaceDotToStar,selectedCountry.name ,isAlarmSet)
-
+            isAlarmSet =!isAlarmSet
             if(isAlarmSet){
-                isAlarmSet =false
-                binding.imgAlarBell.setImageResource(R.drawable.notification_ring_empty_icon)
-
-            }
-            else{
                 isAlarmSet =true
                 binding.imgAlarBell.setImageResource(R.drawable.notification_ring_red_icon)
+            }
+            else{
+                isAlarmSet =false
+                binding.imgAlarBell.setImageResource(R.drawable.notification_ring_empty_icon)
             }
         }
         

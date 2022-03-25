@@ -91,10 +91,10 @@ class TravelMapAllFragment:BaseFragment(), OnMapReadyCallback{
                     if(country.name == marker.title){
 
                         // 선택한 마커의 국가가 => 나의 기존 알람신청리스트에 있는지 여부확인
-                        (mContext as MainActivity).mAlarmList.forEach { myCountry->
+                        MainActivity.mAlarmList.forEach { myCountry->
                             if (myCountry.pushCountry == country.name){
                                 isAlarmSet =true
-                                Log.d("팝업체크유무", isAlarmSet.toString())
+                                Log.d("TravelMapAllFragment_팝업", "${isAlarmSet.toString()}, mAlarmListSize:${MainActivity.mAlarmList.size}")
                                 return@forEach
                             }
                         }
