@@ -66,7 +66,13 @@ class MyCountryListAdapter(
             }
             else{
 
-                btnSetAlarm.setBackgroundColor(ContextCompat.getColor(mContext,R.color.black_bottom))
+                when(data.possibility){
+                    "여행가능"-> btnSetAlarm.setBackgroundColor(ContextCompat.getColor(mContext,R.color.blue_bottom))
+                    "국내격리"-> btnSetAlarm.setBackgroundColor(ContextCompat.getColor(mContext,R.color.green_bottom))
+                    "국내/국외격리"-> btnSetAlarm.setBackgroundColor(ContextCompat.getColor(mContext,R.color.yellow2_bottom))
+                    "입국금지"-> btnSetAlarm.setBackgroundColor(ContextCompat.getColor(mContext,R.color.red_bottom))
+                }
+
                 btnSetAlarm.text ="알림신청"
             }
         }
