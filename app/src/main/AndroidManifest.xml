@@ -13,9 +13,12 @@
         android:theme="@style/Theme.JmFirstProject"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".PopupActivity"
-            android:theme="@style/Theme.AppCompat.Dialog"
+            android:name=".MyProfileActivity"
             android:exported="false" />
+        <activity
+            android:name=".PopupActivity"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Dialog" />
         <activity
             android:name=".SignUpActivity"
             android:exported="false" />

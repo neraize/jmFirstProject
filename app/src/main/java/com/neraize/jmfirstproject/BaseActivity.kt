@@ -26,6 +26,7 @@ abstract class BaseActivity:AppCompatActivity() {
     // 커스텀 액션바 생성뒤에 변수에 대입
     lateinit var txtLogOut:TextView
     lateinit var imgHome:ImageView
+    lateinit var txtProfile:TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -86,6 +87,16 @@ abstract class BaseActivity:AppCompatActivity() {
                 .setNegativeButton("취소",null)
                 .show()
         }
-    }
 
+        // 내정보 선택시
+        txtProfile = defaultActionBar.customView.findViewById(R.id.txtProfile)
+
+        txtProfile.setOnClickListener {
+
+            val myIntent = Intent(mContextt, MyProfileActivity::class.java)
+
+            startActivity(myIntent)
+        }
+
+    }
 }
