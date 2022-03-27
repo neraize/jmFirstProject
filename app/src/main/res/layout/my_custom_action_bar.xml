@@ -21,6 +21,17 @@
         android:text="해외여행 알리미"/>
 
     <TextView
+        android:id="@+id/txtProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:layout_gravity="right|center_vertical"
+        android:layout_marginEnd="45dp"
+        android:textSize="18sp"
+        android:drawableRight="@drawable/profile_icon"
+        android:text=""/>
+
+    <TextView
         android:id="@+id/txtLogOut"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -28,7 +39,8 @@
         android:layout_gravity="right|center_vertical"
         android:layout_marginEnd="5dp"
         android:textSize="18sp"
-        android:text="로그아웃"/>
+        android:drawableRight="@drawable/logout_32_icon"
+        android:text=""/>
 
 
 </FrameLayout>
