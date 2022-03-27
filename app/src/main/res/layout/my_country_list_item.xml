@@ -25,6 +25,6 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/green_bottom"
             android:tag="false"
-            android:text="알림신청"/>
+            android:text="알림OFF"/>
     </LinearLayout>
 </LinearLayout>

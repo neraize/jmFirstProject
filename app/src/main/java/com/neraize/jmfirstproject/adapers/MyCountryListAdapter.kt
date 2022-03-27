@@ -53,42 +53,47 @@ class MyCountryListAdapter(
             if(data.name == alarm.pushCountry){
                 //Log.d("MyCountryListAdapter", "알림OK")
                 isAlarmSet = true
-                btnSetAlarm.text ="알림OK"
+                btnSetAlarm.text ="알림ON"
                 btnSetAlarm.tag="true"
                 btnSetAlarm.setBackgroundColor(ContextCompat.getColor(mContext,R.color.black_bottom))
                 return@forEach
             }
-    }
+        }
 
         // 알림신청 버튼클릭 이벤트
         btnSetAlarm.setOnClickListener {
 
-            Log.d("MyCountryListAdapter1","알람 ${isAlarmSet}")
-
-
-            FirebaseDbConnect.setMyAlarmList(MainActivity.mUserIdReplaceDotToStar, data.name, !isAlarmSet)
-            isAlarmSet =!isAlarmSet
-
-            if(btnSetAlarm.tag == "false"){
-                btnSetAlarm.setBackgroundColor(ContextCompat.getColor(mContext,R.color.black_bottom))
+            Log.d("MyCountryListAdapter","알람클릭전 ${btnSetAlarm.tag}")
+            if(btnSetAlarm.tag =="true"){
                 isAlarmSet=true
-                btnSetAlarm.text ="알림OK"
-                btnSetAlarm.tag ="true"
-                Log.d("MyCountryListAdapter1","알람신청ok")
             }
             else{
                 isAlarmSet=false
-                btnSetAlarm.text ="알림신청"
-                btnSetAlarm.tag ="flase"
+            }
+
+            FirebaseDbConnect.setMyAlarmList(MainActivity.mUserIdReplaceDotToStar, data.name, isAlarmSet)
+//            isAlarmSet =!isAlarmSet
+
+            if(btnSetAlarm.tag =="false"){
+                btnSetAlarm.setBackgroundColor(ContextCompat.getColor(mContext,R.color.black_bottom))
+                isAlarmSet=true
+                btnSetAlarm.text ="알림ON"
+                btnSetAlarm.tag ="true"
+                Log.d("MyCountryListAdapter1","알림ON")
+            }
+            else{
+                isAlarmSet=false
+                btnSetAlarm.text ="알림OFF"
+                btnSetAlarm.tag ="false"
                 when(data.possibility){
                     "여행가능"-> btnSetAlarm.setBackgroundColor(ContextCompat.getColor(mContext,R.color.blue_bottom))
                     "국내격리"-> btnSetAlarm.setBackgroundColor(ContextCompat.getColor(mContext,R.color.green_bottom))
                     "국내/국외격리"-> btnSetAlarm.setBackgroundColor(ContextCompat.getColor(mContext,R.color.yellow2_bottom))
                     "입국금지"-> btnSetAlarm.setBackgroundColor(ContextCompat.getColor(mContext,R.color.red_bottom))
                 }
-                Log.d("MyCountryListAdapter1","알람취소ok")
+                Log.d("MyCountryListAdapter","알림OFF")
             }
-            Log.d("MyCountryListAdapter2","알람 ${isAlarmSet}")
+            Log.d("MyCountryListAdapter","알람클릭후 ${btnSetAlarm.tag}")
         }
         return  row
     }
