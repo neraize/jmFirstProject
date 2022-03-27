@@ -1,6 +1,8 @@
 package com.neraize.jmfirstproject.fragments
 
 import android.content.Intent
+import android.location.Address
+import android.location.Geocoder
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -19,10 +21,9 @@ import com.neraize.jmfirstproject.MainActivity
 import com.neraize.jmfirstproject.PopupActivity
 import com.neraize.jmfirstproject.R
 import com.neraize.jmfirstproject.SplashActivity
-import com.neraize.jmfirstproject.databinding.ActivityPopupBinding
 import com.neraize.jmfirstproject.databinding.FragmentTravelMapAllBinding
 import com.neraize.jmfirstproject.datas.CountryData
-import retrofit2.http.Url
+
 
 class TravelMapAllFragment:BaseFragment(), OnMapReadyCallback{
 
@@ -59,6 +60,57 @@ class TravelMapAllFragment:BaseFragment(), OnMapReadyCallback{
 
     override fun SetValues() {
 
+        // 구글맵 검색
+        var addresses: List<Address>? = null
+
+        binding.btnMapSearch.setOnClickListener(View.OnClickListener {
+
+            val edtMapSearch= binding.edtMapSearch.text.toString()
+            val geocoder = Geocoder(mContext)
+
+            try {
+                    addresses = geocoder.getFromLocationName(edtMapSearch, 3)
+                }
+            catch (e:Exception){ }
+
+            if (addresses != null) {
+                if (addresses!!.size == 0) {
+                    Toast.makeText(mContext, "해당되는 국가명이 존재하지않습니다", Toast.LENGTH_SHORT).show()
+                }
+                else {
+                    //카메라 이동
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(LatLng(addresses!!.get(0)!!.latitude, addresses!!.get(0)!!.longitude)))
+
+                    // 알람신청여부 변수설정
+                    var isAlarmSet=false
+
+                    // 해당국가명 리스트에 있을시, 팝업페이지 있을시 띄어주기
+                    SplashActivity.mCountryList.forEach { country->
+                        if(country.name == edtMapSearch){
+
+                            // 선택한 마커의 국가가 => 나의 기존 알람신청리스트에 있는지 여부확인
+                            MainActivity.mAlarmList.forEach { myCountry->
+                                if (myCountry.pushCountry == country.name){
+                                    isAlarmSet =true
+                                    Log.d("TravelMapAllFragment_팝업", "${isAlarmSet.toString()}, mAlarmListSize:${MainActivity.mAlarmList.size}")
+                                    return@forEach
+                                }
+                            }
+
+                            val selectedCountry =CountryData(country.id, country.name, country.possibility, country.information, country.latitude, country.longitude)
+
+                            val myIntent = Intent(mContext as MainActivity, PopupActivity::class.java)
+                            myIntent.putExtra("selectedCountry", selectedCountry)
+                            myIntent.putExtra("isAlarmSet",isAlarmSet)
+
+                            startActivity(myIntent)
+                        }
+                    }
+                }
+            }
+        })
+
+        
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
@@ -118,8 +170,8 @@ class TravelMapAllFragment:BaseFragment(), OnMapReadyCallback{
                 return true
             }
         })
-        
-        
+
+
         // 맵 스크롤시, 뷰페이저이동 막기
         binding.txtScrollHelp.setOnTouchListener { view, motionEvent ->
 
