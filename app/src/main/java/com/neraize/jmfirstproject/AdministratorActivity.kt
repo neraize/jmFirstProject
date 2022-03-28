@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.EditText
+import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import com.neraize.jmfirstproject.adapers.MyAdminListAdapter
 import com.neraize.jmfirstproject.databinding.ActivityAdministratorBinding
@@ -12,7 +14,10 @@ class AdministratorActivity : BaseActivity(), AdapterView.OnItemSelectedListener
 
     lateinit var binding:ActivityAdministratorBinding
 
-    lateinit var spnPossibility:String
+    companion object{
+        lateinit var txtName: TextView
+        lateinit var spnPossibility:String
+    }
 
     lateinit var mAdapter: MyAdminListAdapter
 
@@ -42,6 +47,8 @@ class AdministratorActivity : BaseActivity(), AdapterView.OnItemSelectedListener
     }
 
     override fun SetValues() {
+
+        txtName = binding.txtName
 
         txtProfile.visibility = View.GONE
         txtProfileOut.visibility = View.VISIBLE

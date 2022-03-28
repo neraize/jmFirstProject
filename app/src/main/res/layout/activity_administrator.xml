@@ -20,12 +20,12 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:orientation="horizontal">
-            <EditText
-                android:id="@+id/edtName"
+            <TextView
+                android:id="@+id/txtName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="국가명"/>
+                android:text="국가명"/>
             <Spinner
                 android:id="@+id/spinner"
                 android:layout_centerHorizontal="true"

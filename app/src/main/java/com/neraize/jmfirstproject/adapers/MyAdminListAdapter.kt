@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import com.neraize.jmfirstproject.AdministratorActivity
 import com.neraize.jmfirstproject.MainActivity
 import com.neraize.jmfirstproject.MyProfileActivity
 import com.neraize.jmfirstproject.R
@@ -38,10 +39,16 @@ class MyAdminListAdapter(
 
         val txtName = row.findViewById<TextView>(R.id.txtTitle)
         val txtPossibility = row.findViewById<TextView>(R.id.txtPossibility)
+        val btnSave = row.findViewById<Button>(R.id.btnSave)
 
         txtName.text = data.name
         txtPossibility.text =data.possibility
 
+
+        txtName.setOnClickListener {
+
+            AdministratorActivity.txtName.text = data.name
+        }
 
         return  row
     }
