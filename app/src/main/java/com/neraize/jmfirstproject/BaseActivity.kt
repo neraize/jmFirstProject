@@ -4,9 +4,11 @@ import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -28,6 +30,9 @@ abstract class BaseActivity:AppCompatActivity() {
     lateinit var imgHome:ImageView
     lateinit var txtProfile:TextView
     lateinit var txtProfileOut:TextView
+
+    // 관리자 아이콘
+    lateinit var txtAdministrator:TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,6 +59,11 @@ abstract class BaseActivity:AppCompatActivity() {
         // 액션바 좌우 여백 제거
         val toolbar = defaultActionBar.customView.parent as Toolbar
         toolbar.setContentInsetsAbsolute(0,0)
+
+        // 관리자페이지가기 버튼
+        txtAdministrator = defaultActionBar.customView.findViewById(R.id.txtAdministrator)
+        txtAdministrator.visibility = View.GONE
+
 
         // 홈이미지버튼
         imgHome = defaultActionBar.customView.findViewById(R.id.imgHome)
@@ -103,5 +113,12 @@ abstract class BaseActivity:AppCompatActivity() {
             startActivity(myIntent)
         }
 
+        // 관리자 아이콘 선택시
+        txtAdministrator.setOnClickListener {
+
+            val myIntent =  Intent(mContextt, AdministratorActivity::class.java)
+
+            startActivity(myIntent)
+        }
     }
 }

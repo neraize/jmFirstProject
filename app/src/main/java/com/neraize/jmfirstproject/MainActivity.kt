@@ -51,6 +51,13 @@ class MainActivity : BaseActivity() {
                     // 문자열 변환 test@naver.com -> test@naver*com
                     mUserIdReplaceDotToStar = (br.data.user.email.toString()).replace(".","*")
 
+                    // 아이디가 관리자일때,  관리자 아이콘 보여주기
+                    if (MainActivity.mUserIdReplaceDotToStar == "neraize@gmail*com"){
+                        Log.d("나의 아디",MainActivity.mUserIdReplaceDotToStar.toString() )
+                        txtAdministrator.visibility = View.VISIBLE
+                        txtProfile.visibility = View.GONE
+                    }
+
                     // 파이어베이스 디비 연결
                     // 디비중에서, 로그인한 이메일주소 기준으로 알람추가한 국가리스트 찾기
                     mAlarmList = FirebaseDbConnect.getMyAlarmList(mUserIdReplaceDotToStar)

@@ -13,6 +13,9 @@
         android:theme="@style/Theme.JmFirstProject"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".AdministratorActivity"
+            android:exported="false" />
+        <activity
             android:name=".MyProfileActivity"
             android:exported="false" />
         <activity
