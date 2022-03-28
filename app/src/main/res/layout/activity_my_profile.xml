@@ -13,6 +13,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="30sp"
+            android:textColor="@color/black_bottom"
             android:text="나의 관심 정보"/>
 
         <ListView
