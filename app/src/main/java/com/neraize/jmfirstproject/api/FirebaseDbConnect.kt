@@ -32,9 +32,10 @@ class FirebaseDbConnect {
                     Log.d("snapshotSize", snapshotSize.toString())
 
                     if(snapshot.hasChild(mUserIdReplaceDotToStar)){
-                        for(i in 0 .. snapshotSize){
-                            val pushCountry = (snapshot.child(mUserIdReplaceDotToStar).child(i.toString()).child("push_country").value).toString()
-                            val possibility = (snapshot.child(mUserIdReplaceDotToStar).child(i.toString()).child("possibility").value).toString()
+                        // for(i in 0 .. snapshotSize){
+                        for(item in snapshot.child(mUserIdReplaceDotToStar).children){
+                            val pushCountry = item.child("push_country").value.toString()
+                            val possibility = item.child("possibility").value.toString()
 
                             if(pushCountry=="null"){
                                 snapshotLastNum = snapshot.child(mUserIdReplaceDotToStar).children.last().key!!.toLong()!!
