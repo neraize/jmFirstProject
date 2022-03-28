@@ -27,6 +27,7 @@ abstract class BaseActivity:AppCompatActivity() {
     lateinit var txtLogOut:TextView
     lateinit var imgHome:ImageView
     lateinit var txtProfile:TextView
+    lateinit var txtProfileOut:TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,6 +58,10 @@ abstract class BaseActivity:AppCompatActivity() {
         // 홈이미지버튼
         imgHome = defaultActionBar.customView.findViewById(R.id.imgHome)
         imgHome.visibility = View.GONE
+
+        // 프로필 로그아웃 버튼
+        txtProfileOut = defaultActionBar.customView.findViewById(R.id.txtProfileOut)
+        txtProfileOut.visibility = View.GONE
 
         // 로그아웃
         txtLogOut = defaultActionBar.customView.findViewById(R.id.txtLogOut)

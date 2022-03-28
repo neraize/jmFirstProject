@@ -35,6 +35,7 @@ class MyProfileActivity : BaseActivity() {
 
         imgHome.visibility = View.VISIBLE
         txtProfile.visibility =  View.GONE
+        txtProfileOut.visibility = View.VISIBLE
 
         mAdapter = MyAlarmListAdapter(mContextt, R.layout.my_alarm_list_item, MainActivity.mAlarmList)
         binding.myAlarmListView.adapter = mAdapter
@@ -42,6 +43,10 @@ class MyProfileActivity : BaseActivity() {
         // 어댑터 새로고침
         //mAdapter.notifyDataSetChanged()
 
+        // 프로필 화면 나가기
+        txtProfileOut.setOnClickListener {
+            finish()
+        }
     }
 
 }

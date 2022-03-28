@@ -42,5 +42,16 @@
         android:drawableRight="@drawable/logout_32_icon"
         android:text=""/>
 
+    <TextView
+        android:id="@+id/txtProfileOut"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:layout_gravity="right|center_vertical"
+        android:layout_marginEnd="10dp"
+        android:textSize="18sp"
+        android:drawableRight="@drawable/profile_out_icon"
+        android:text=""/>
+
 
 </FrameLayout>
