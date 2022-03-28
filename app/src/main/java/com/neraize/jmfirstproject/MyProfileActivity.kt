@@ -13,7 +13,11 @@ class MyProfileActivity : BaseActivity() {
 
     lateinit var binding:ActivityMyProfileBinding
 
-    lateinit var mAdapter:MyAlarmListAdapter
+
+
+    companion object{
+        lateinit var mAdapter:MyAlarmListAdapter
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,5 +41,7 @@ class MyProfileActivity : BaseActivity() {
 
         // 어댑터 새로고침
         //mAdapter.notifyDataSetChanged()
+
     }
+
 }

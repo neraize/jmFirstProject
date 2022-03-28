@@ -32,7 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/green_bottom"
-            android:tag="false"
+            android:tag="true"
             android:text="알림ON"/>
     </LinearLayout>
 </LinearLayout>
