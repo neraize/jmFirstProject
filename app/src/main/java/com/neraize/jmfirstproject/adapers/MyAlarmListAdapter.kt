@@ -56,6 +56,10 @@ class MyAlarmListAdapter(
 //            txtName.visibility =View.GONE
 //            txtPossibility.visibility=View.GONE
             Log.d("MyCountryListAdapter","알림OFF")
+
+            // 데이터삭제
+            mList.remove(data)
+            notifyDataSetChanged()
         }
         return  row
     }
