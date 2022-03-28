@@ -69,7 +69,7 @@ class PopupActivity : BaseActivity() {
         // 알람 온오프
         binding.imgAlarBell.setOnClickListener {
 
-            FirebaseDbConnect.setMyAlarmList(mUserIdReplaceDotToStar,selectedCountry.name ,isAlarmSet)
+            FirebaseDbConnect.setMyAlarmList(mUserIdReplaceDotToStar,selectedCountry.name, selectedCountry.possibility, isAlarmSet)
             isAlarmSet =!isAlarmSet
             if(isAlarmSet){
                 isAlarmSet =true

@@ -71,7 +71,7 @@ class MyCountryListAdapter(
                 isAlarmSet=false
             }
 
-            FirebaseDbConnect.setMyAlarmList(MainActivity.mUserIdReplaceDotToStar, data.name, isAlarmSet)
+            FirebaseDbConnect.setMyAlarmList(MainActivity.mUserIdReplaceDotToStar, data.name, data.possibility,  isAlarmSet)
 //            isAlarmSet =!isAlarmSet
 
             if(btnSetAlarm.tag =="false"){

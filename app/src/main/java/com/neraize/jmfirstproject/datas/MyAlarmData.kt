@@ -4,6 +4,7 @@ import java.io.Serializable
 
 class MyAlarmData(
     val pushCountry:String,
+    val possibility:String,
 ){
 
 }

@@ -2,10 +2,12 @@ package com.neraize.jmfirstproject
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.databinding.DataBindingUtil
 import com.neraize.jmfirstproject.adapers.MyAlarmListAdapter
 import com.neraize.jmfirstproject.databinding.ActivityMyProfileBinding
+import com.neraize.jmfirstproject.datas.MyAlarmData
 
 class MyProfileActivity : BaseActivity() {
 

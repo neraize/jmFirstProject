@@ -34,13 +34,14 @@ class FirebaseDbConnect {
                     if(snapshot.hasChild(mUserIdReplaceDotToStar)){
                         for(i in 0 .. snapshotSize){
                             val pushCountry = (snapshot.child(mUserIdReplaceDotToStar).child(i.toString()).child("push_country").value).toString()
+                            val possibility = (snapshot.child(mUserIdReplaceDotToStar).child(i.toString()).child("possibility").value).toString()
 
                             if(pushCountry=="null"){
                                 snapshotLastNum = snapshot.child(mUserIdReplaceDotToStar).children.last().key!!.toLong()!!
                                 break
                             }
                             //Log.d("알림${i}",pushCountry)
-                            MainActivity.mAlarmList.add(MyAlarmData(pushCountry))
+                            MainActivity.mAlarmList.add(MyAlarmData(pushCountry, possibility))
                             Log.d("pushCountry", pushCountry.toString())
                         }
                     }
@@ -53,7 +54,7 @@ class FirebaseDbConnect {
 
 
         // 디비중에서, 로그인한 이메일주소 기준으로 알람국가  추가/삭제기능
-        fun setMyAlarmList(mUserIdReplaceDotToStar:String, selectedCountry:String ,isAlarmSet:Boolean){
+        fun setMyAlarmList(mUserIdReplaceDotToStar:String, selectedCountry:String, possibility:String ,isAlarmSet:Boolean){
             // Log.d("mUserIdReplaceDotToStar", mUserIdReplaceDotToStar.toString())
             Log.d("setMyAlarmList함수진입", "snapshotLastNum${snapshotLastNum}")
 
@@ -68,7 +69,7 @@ class FirebaseDbConnect {
             // 해당국가의 알람이 있었던 경우  ->  삭제 함수
             fun deleteAlarm(snapshotNum:Int){
                 Log.d("삭제함수진입", "snapshotLastNum: ${snapshotNum}")
-                myRef.child(mUserIdReplaceDotToStar).child(snapshotNum.toString()).child("push_country").removeValue()
+                myRef.child(mUserIdReplaceDotToStar).child(snapshotNum.toString()).child("push_country").parent!!.removeValue()
 
                 for (alarm in ArrayList<MyAlarmData>(MainActivity.mAlarmList)) {
                     if(alarm.pushCountry == selectedCountry ){
@@ -83,9 +84,10 @@ class FirebaseDbConnect {
 
                 Log.d("추가함수진입", "snapshotLastNum${snapshotLastNum}")
                 myRef.child(mUserIdReplaceDotToStar).child(snapshotLastNum.toString()).child("push_country").setValue(selectedCountry)
+                myRef.child(mUserIdReplaceDotToStar).child(snapshotLastNum.toString()).child("possibility").setValue(possibility)
                 isAlarmSetForReturn =true
                 MainActivity.mAlarmList.clear()
-                MainActivity.mAlarmList.add(MyAlarmData(selectedCountry))
+                MainActivity.mAlarmList.add(MyAlarmData(selectedCountry, possibility))
 
                 MainActivity.mAlarmList.forEach { alarm->
                     Log.d("FirebaseDbConnect", "알람추가후 리스트현황 ${alarm.pushCountry}")

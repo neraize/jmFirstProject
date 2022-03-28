@@ -40,7 +40,7 @@ class MyAlarmListAdapter(
         val btnSetAlarm = row.findViewById<Button>(R.id.btnSetAlarm)
 
         txtName.text = data.pushCountry
-//        txtPossibility.text =data.possibility
+        txtPossibility.text =data.possibility
 
 //        when(data.possibility){
 //            "여행가능"-> btnSetAlarm.setBackgroundColor(ContextCompat.getColor(mContext,R.color.blue_bottom))
