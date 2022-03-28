@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="my_array">
+        <item>여행가능</item>
+        <item>국내격리</item>
+        <item>국내/국외격리</item>
+        <item>입국금지</item>
+    </string-array>
+</resources>
