@@ -32,15 +32,17 @@ class FirebaseDbConnect {
                     Log.d("snapshotSize", snapshotSize.toString())
 
                     if(snapshot.hasChild(mUserIdReplaceDotToStar)){
+                        MainActivity.mAlarmList.clear()
                         // for(i in 0 .. snapshotSize){
                         for(item in snapshot.child(mUserIdReplaceDotToStar).children){
                             val pushCountry = item.child("push_country").value.toString()
                             val possibility = item.child("possibility").value.toString()
 
-                            if(pushCountry=="null"){
-                                snapshotLastNum = snapshot.child(mUserIdReplaceDotToStar).children.last().key!!.toLong()!!
-                                break
-                            }
+                            snapshotLastNum = snapshot.child(mUserIdReplaceDotToStar).children.last().key!!.toLong()!!
+//                            if(pushCountry=="null"){
+//                                snapshotLastNum = snapshot.child(mUserIdReplaceDotToStar).children.last().key!!.toLong()!!
+//                                break
+//                            }
                             //Log.d("알림${i}",pushCountry)
                             MainActivity.mAlarmList.add(MyAlarmData(pushCountry, possibility))
                             Log.d("pushCountry", pushCountry.toString())
