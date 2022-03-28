@@ -1,12 +1,11 @@
 package com.neraize.jmfirstproject
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import com.neraize.jmfirstproject.adapers.MyAdminListAdapter
 import com.neraize.jmfirstproject.databinding.ActivityAdministratorBinding
 
 class AdministratorActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
@@ -14,6 +13,8 @@ class AdministratorActivity : BaseActivity(), AdapterView.OnItemSelectedListener
     lateinit var binding:ActivityAdministratorBinding
 
     lateinit var spnPossibility:String
+
+    lateinit var mAdapter: MyAdminListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,6 +50,13 @@ class AdministratorActivity : BaseActivity(), AdapterView.OnItemSelectedListener
         txtProfileOut.setOnClickListener {
             finish()
         }
+
+
+        mAdapter = MyAdminListAdapter(mContextt, R.layout.my_admin_list_item, SplashActivity.mCountryList)
+        binding.myAdministratorListView.adapter = mAdapter
+
+        // 어댑터 새로고침
+        //mAdapter.notifyDataSetChanged()
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {

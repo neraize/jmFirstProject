@@ -18,6 +18,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
             android:orientation="horizontal">
             <EditText
                 android:id="@+id/edtName"
@@ -37,6 +38,7 @@
                 android:backgroundTint="@color/green_bottom"
                 android:text="변경"/>
         </LinearLayout>
+
 
         <ListView
             android:id="@+id/myAdministratorListView"
