@@ -3,6 +3,7 @@ package com.neraize.jmfirstproject.api
 import android.util.Log
 import com.google.firebase.database.*
 import com.neraize.jmfirstproject.MainActivity
+import com.neraize.jmfirstproject.SplashActivity
 import com.neraize.jmfirstproject.datas.MyAlarmData
 
 
@@ -125,6 +126,48 @@ class FirebaseDbConnect {
             }
 
 
+        }
+
+
+
+        // 관리자모드에서, country db 내용 변경
+        fun setUpdateMyCountry(updateCountryName:String, possibility:String){
+
+            // 파이어베이스 디비 연결
+            val database = FirebaseDatabase.getInstance()
+
+            // 디비중에서, 로그인한 이메일주소 기준으로 알람추가한 국가리스트 찾기
+            val myRef = database.getReference("country")
+
+            // 추가 함수
+            fun updateCountry(snapshotNum:Int){
+
+                Log.d("업데이트함수진입", "snapshotLastNum${snapshotNum}")
+                myRef.child(snapshotNum.toString()).child("possibility").setValue(possibility)
+
+                // 임시 주석
+//                SplashActivity.setFireBaseDB()
+            }
+
+                myRef.addValueEventListener(object :ValueEventListener{
+                    override fun onDataChange(snapshot: DataSnapshot) {
+
+                        val snapshotSize = snapshot.childrenCount -1
+                        //Log.d("국가수", snapshotSize.toString())
+
+                        for(i in 0 .. snapshotSize){
+                            val name = (snapshot.child(i.toString()).child("name").value).toString()
+                            val possibility = (snapshot.child(i.toString()).child("possibility").value).toString()
+
+                            if(updateCountryName == name){
+                                //업데이트함수 실행
+                                updateCountry(i.toInt())
+                                break
+                            }
+                        }
+                    }
+                    override fun onCancelled(error: DatabaseError) { }
+                })
         }
     }
 }

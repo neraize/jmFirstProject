@@ -8,6 +8,7 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import com.neraize.jmfirstproject.adapers.MyAdminListAdapter
+import com.neraize.jmfirstproject.api.FirebaseDbConnect
 import com.neraize.jmfirstproject.databinding.ActivityAdministratorBinding
 
 class AdministratorActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
@@ -43,6 +44,12 @@ class AdministratorActivity : BaseActivity(), AdapterView.OnItemSelectedListener
     }
 
     override fun SetupEvents() {
+
+        binding.btnSave.setOnClickListener {
+
+            if(txtName.text != "국가명")
+                FirebaseDbConnect.setUpdateMyCountry(txtName.text.toString(), spnPossibility)
+        }
 
     }
 
