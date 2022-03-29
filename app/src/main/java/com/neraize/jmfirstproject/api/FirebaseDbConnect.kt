@@ -1,5 +1,7 @@
 package com.neraize.jmfirstproject.api
 
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import com.google.firebase.database.*
 import com.neraize.jmfirstproject.AdministratorActivity
@@ -135,8 +137,8 @@ class FirebaseDbConnect {
         // 관리자모드에서, country db 내용 변경
         fun setUpdateMyCountry(updateCountryName:String, possibility:String){
 
-            // onDataChange(){ } 안에서 업데이트 함수 실행시, 무한 반복 빠져나오기 위한 변수
-            var isAlarmSetForReturn =  true
+            // 업데이트함수용 국가 인덱스
+            var snapshotNum = -1
 
             // 파이어베이스 디비 연결
             val database = FirebaseDatabase.getInstance()
@@ -149,36 +151,36 @@ class FirebaseDbConnect {
 
                 Log.d("업데이트함수진입", "snapshotLastNum${snapshotNum}")
                 myRef.child(snapshotNum.toString()).child("possibility").setValue(possibility)
-                isAlarmSetForReturn=false
-//                SplashActivity.mCountryList.clear()
-                return
 
-                // 임시 주석
-//                SplashActivity.setFireBaseDB()
+                SplashActivity.getFireBaseDB()
             }
 
-            if(isAlarmSetForReturn){
-                myRef.addValueEventListener(object :ValueEventListener{
-                    override fun onDataChange(snapshot: DataSnapshot) {
+            myRef.addValueEventListener(object :ValueEventListener{
+                override fun onDataChange(snapshot: DataSnapshot) {
 
-                        val snapshotSize = snapshot.childrenCount-1
-                        Log.d("국가수2", snapshotSize.toString())
+                    val snapshotSize = snapshot.childrenCount-1
+                    Log.d("국가수2", snapshotSize.toString())
 
-                        for(i in 0 .. snapshotSize){
-                            val name = (snapshot.child(i.toString()).child("name").value).toString()
-                            val possibility = (snapshot.child(i.toString()).child("possibility").value).toString()
+                    for(i in 0 .. snapshotSize){
+                        val name = (snapshot.child(i.toString()).child("name").value).toString()
+                        val possibility = (snapshot.child(i.toString()).child("possibility").value).toString()
 
-                            if(updateCountryName == name){
-                                //업데이트함수 실행
-                                updateCountry(i.toInt())
-                                isAlarmSetForReturn =false
-                                break
-                            }
+                        if(updateCountryName == name){
+                            //업데이트함수용 인덱스받기
+                            snapshotNum = i.toInt()
+                            break
                         }
                     }
-                    override fun onCancelled(error: DatabaseError) { }
-                })
-            }
+                }
+                override fun onCancelled(error: DatabaseError) { }
+            })
+
+            val myHandler = Handler(Looper.getMainLooper())
+            myHandler.postDelayed({
+                if(snapshotNum !=-1){
+                    updateCountry(snapshotNum)
+                }
+            },3000)
         }
     }
 }
