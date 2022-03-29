@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.neraize.jmfirstproject.databinding.ActivitySignInBinding
@@ -75,6 +76,8 @@ class SignInActivity : BaseActivity() {
     }
 
     override fun SetValues() {
+
+        txtProfile.visibility =View.GONE
 
         // 자동로그인 체크박스 체크여부 반영
         binding.ckboxAutoLogin.isChecked = ContextUtil.getAutoLogin(mContextt)
