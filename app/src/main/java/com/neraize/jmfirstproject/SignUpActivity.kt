@@ -2,6 +2,7 @@ package com.neraize.jmfirstproject
 
 import android.os.Bundle
 import android.util.Patterns
+import android.view.View
 import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
@@ -102,5 +103,6 @@ class SignUpActivity : BaseActivity() {
 
     override fun SetValues() {
 
+        txtProfile.visibility = View.GONE
     }
 }
