@@ -9,11 +9,9 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
-import com.neraize.jmfirstproject.AdministratorActivity
-import com.neraize.jmfirstproject.MainActivity
-import com.neraize.jmfirstproject.MyProfileActivity
-import com.neraize.jmfirstproject.R
+import com.neraize.jmfirstproject.*
 import com.neraize.jmfirstproject.api.FirebaseDbConnect
 import com.neraize.jmfirstproject.datas.CountryData
 import com.neraize.jmfirstproject.datas.MyAlarmData
@@ -48,6 +46,26 @@ class MyAdminListAdapter(
         txtName.setOnClickListener {
 
             AdministratorActivity.txtName.text = data.name
+            AdministratorActivity.txtName.setTextColor(ContextCompat.getColor(mContext,R.color.red_bottom))
+        }
+
+
+        AdministratorActivity.btnSave.setOnClickListener {
+
+            if(AdministratorActivity.txtName.text != "국가명"){
+                FirebaseDbConnect.setUpdateMyCountry(AdministratorActivity.txtName.text.toString(), AdministratorActivity.spnPossibility)
+
+                Toast.makeText(mContext, "${AdministratorActivity.txtName.text} ${AdministratorActivity.spnPossibility}으로 변경완료", Toast.LENGTH_SHORT).show()
+
+//                mList.remove(data)
+//                mList.clear()
+//                mList.addAll(SplashActivity.mCountryList)
+//                this.notifyDataSetChanged()
+
+            }
+            else{
+                Toast.makeText(mContext, "변경할 국가를 선택해주세요", Toast.LENGTH_SHORT).show()
+            }
         }
 
         return  row

@@ -117,7 +117,7 @@ abstract class BaseActivity:AppCompatActivity() {
         txtAdministrator.setOnClickListener {
 
             val myIntent =  Intent(mContextt, AdministratorActivity::class.java)
-
+            SplashActivity.getFireBaseDB()
             startActivity(myIntent)
         }
     }

@@ -2,10 +2,7 @@ package com.neraize.jmfirstproject
 
 import android.os.Bundle
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.EditText
-import android.widget.TextView
+import android.widget.*
 import androidx.databinding.DataBindingUtil
 import com.neraize.jmfirstproject.adapers.MyAdminListAdapter
 import com.neraize.jmfirstproject.api.FirebaseDbConnect
@@ -18,6 +15,8 @@ class AdministratorActivity : BaseActivity(), AdapterView.OnItemSelectedListener
     companion object{
         lateinit var txtName: TextView
         lateinit var spnPossibility:String
+        lateinit var txtPossibility:TextView
+        lateinit var btnSave:Button
     }
 
     lateinit var mAdapter: MyAdminListAdapter
@@ -45,17 +44,20 @@ class AdministratorActivity : BaseActivity(), AdapterView.OnItemSelectedListener
 
     override fun SetupEvents() {
 
-        binding.btnSave.setOnClickListener {
-
-            if(txtName.text != "국가명")
-                FirebaseDbConnect.setUpdateMyCountry(txtName.text.toString(), spnPossibility)
-        }
+//        binding.btnSave.setOnClickListener {
+//
+//            if(txtName.text != "국가명")
+//                FirebaseDbConnect.setUpdateMyCountry(txtName.text.toString(), spnPossibility)
+//                Toast.makeText(mContextt, "${txtName.text} ${spnPossibility}으로 변경완료", Toast.LENGTH_SHORT).show()
+//
+//        }
 
     }
 
     override fun SetValues() {
 
         txtName = binding.txtName
+        btnSave = binding.btnSave
 
         txtProfile.visibility = View.GONE
         txtProfileOut.visibility = View.VISIBLE
@@ -78,7 +80,7 @@ class AdministratorActivity : BaseActivity(), AdapterView.OnItemSelectedListener
             0-> spnPossibility ="여행가능"
             1-> spnPossibility ="국내격리"
             2-> spnPossibility ="국내/국외격리"
-            else-> spnPossibility ="국내/입국금지"
+            else-> spnPossibility ="입국금지"
         }
 
         //Toast.makeText(mContextt, spnPossibility, Toast.LENGTH_SHORT).show()

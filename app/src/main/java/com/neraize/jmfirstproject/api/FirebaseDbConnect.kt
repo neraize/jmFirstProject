@@ -2,8 +2,10 @@ package com.neraize.jmfirstproject.api
 
 import android.util.Log
 import com.google.firebase.database.*
+import com.neraize.jmfirstproject.AdministratorActivity
 import com.neraize.jmfirstproject.MainActivity
 import com.neraize.jmfirstproject.SplashActivity
+import com.neraize.jmfirstproject.adapers.MyAdminListAdapter
 import com.neraize.jmfirstproject.datas.MyAlarmData
 
 
@@ -133,6 +135,9 @@ class FirebaseDbConnect {
         // 관리자모드에서, country db 내용 변경
         fun setUpdateMyCountry(updateCountryName:String, possibility:String){
 
+            // onDataChange(){ } 안에서 업데이트 함수 실행시, 무한 반복 빠져나오기 위한 변수
+            var isAlarmSetForReturn =  true
+
             // 파이어베이스 디비 연결
             val database = FirebaseDatabase.getInstance()
 
@@ -144,16 +149,20 @@ class FirebaseDbConnect {
 
                 Log.d("업데이트함수진입", "snapshotLastNum${snapshotNum}")
                 myRef.child(snapshotNum.toString()).child("possibility").setValue(possibility)
+                isAlarmSetForReturn=false
+//                SplashActivity.mCountryList.clear()
+                return
 
                 // 임시 주석
 //                SplashActivity.setFireBaseDB()
             }
 
+            if(isAlarmSetForReturn){
                 myRef.addValueEventListener(object :ValueEventListener{
                     override fun onDataChange(snapshot: DataSnapshot) {
 
-                        val snapshotSize = snapshot.childrenCount -1
-                        //Log.d("국가수", snapshotSize.toString())
+                        val snapshotSize = snapshot.childrenCount-1
+                        Log.d("국가수2", snapshotSize.toString())
 
                         for(i in 0 .. snapshotSize){
                             val name = (snapshot.child(i.toString()).child("name").value).toString()
@@ -162,12 +171,14 @@ class FirebaseDbConnect {
                             if(updateCountryName == name){
                                 //업데이트함수 실행
                                 updateCountry(i.toInt())
+                                isAlarmSetForReturn =false
                                 break
                             }
                         }
                     }
                     override fun onCancelled(error: DatabaseError) { }
                 })
+            }
         }
     }
 }

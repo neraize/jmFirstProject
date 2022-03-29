@@ -27,6 +27,36 @@ class SplashActivity : BaseActivity() {
         val mCountryDomesticList = ArrayList<CountryData>()
         val mCountryDomesticAndForeignList = ArrayList<CountryData>()
         val mCountryProhibitionList = ArrayList<CountryData>()
+
+
+        fun getFireBaseDB(){
+
+            mCountryList.clear()
+
+            // 파이어 베이스 디비연결
+            val database = FirebaseDatabase.getInstance()
+            val myRef = database.getReference("country")
+
+            myRef.addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+
+                    val snapshotSize = snapshot.childrenCount-1
+                    Log.d("국가수", snapshotSize.toString())
+                    for(i in 0 .. snapshotSize){
+
+                        val id = (snapshot.child(i.toString()).child("id").value).toString().toInt()
+                        val name = (snapshot.child(i.toString()).child("name").value).toString()
+                        val possibility = (snapshot.child(i.toString()).child("possibility").value).toString()
+                        val information = (snapshot.child(i.toString()).child("information").value).toString()
+                        val latitude = (snapshot.child(i.toString()).child("latitude").value).toString().toDouble()
+                        val longitude = (snapshot.child(i.toString()).child("longitude").value).toString().toDouble()
+
+                        mCountryList.addAll(listOf(CountryData(id, name, possibility, information, latitude, longitude)))
+                    }
+                }
+                override fun onCancelled(error: DatabaseError) {}
+            })
+        }
     }
 
 
@@ -119,22 +149,22 @@ class SplashActivity : BaseActivity() {
                     }
                 }
 
-                mCountryList.forEach { i->
-                    i
-                    Log.d("모두보기", "${i.id}, ${i.name}, ${i.possibility}, ${i.information}, ${i.latitude}, ${i.longitude} ")
-                }
-                mCountryDomesticList.forEach { i->
-                    i
-                    Log.d("국내격리", "${i.id}, ${i.name}, ${i.possibility}, ${i.information}, ${i.latitude}, ${i.longitude} ")
-                }
-                mCountryDomesticAndForeignList.forEach { i->
-                    i
-                    Log.d("국내/국외격리", "${i.id}, ${i.name}, ${i.possibility}, ${i.information}, ${i.latitude}, ${i.longitude} ")
-                }
-                mCountryProhibitionList.forEach { i->
-                    i
-                    Log.d("입국금지", "${i.id}, ${i.name}, ${i.possibility}, ${i.information}, ${i.latitude}, ${i.longitude} ")
-                }
+//                mCountryList.forEach { i->
+//                    i
+//                    Log.d("모두보기", "${i.id}, ${i.name}, ${i.possibility}, ${i.information}, ${i.latitude}, ${i.longitude} ")
+//                }
+//                mCountryDomesticList.forEach { i->
+//                    i
+//                    Log.d("국내격리", "${i.id}, ${i.name}, ${i.possibility}, ${i.information}, ${i.latitude}, ${i.longitude} ")
+//                }
+//                mCountryDomesticAndForeignList.forEach { i->
+//                    i
+//                    Log.d("국내/국외격리", "${i.id}, ${i.name}, ${i.possibility}, ${i.information}, ${i.latitude}, ${i.longitude} ")
+//                }
+//                mCountryProhibitionList.forEach { i->
+//                    i
+//                    Log.d("입국금지", "${i.id}, ${i.name}, ${i.possibility}, ${i.information}, ${i.latitude}, ${i.longitude} ")
+//                }
 
             }
             override fun onCancelled(error: DatabaseError) {
