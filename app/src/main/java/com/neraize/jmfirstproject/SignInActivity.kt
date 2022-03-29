@@ -79,6 +79,8 @@ class SignInActivity : BaseActivity() {
 
         txtProfile.visibility =View.GONE
 
+        txtProfile.visibility =View.GONE
+
         // 자동로그인 체크박스 체크여부 반영
         binding.ckboxAutoLogin.isChecked = ContextUtil.getAutoLogin(mContextt)
     }
