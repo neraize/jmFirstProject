@@ -152,14 +152,25 @@ class FirebaseDbConnect {
                 Log.d("업데이트함수진입", "snapshotLastNum${snapshotNum}")
                 myRef.child(snapshotNum.toString()).child("possibility").setValue(possibility)
 
-                SplashActivity.getFireBaseDB()
+                SplashActivity.mCountryList.forEach { country->
+
+                    if (country.name == updateCountryName){
+                        country.possibility = possibility
+                        Log.d("FirebaseDbConnect","mCountryList수정완료")
+                        return@forEach
+                    }
+                }
+                // 어댑터 새로고침ok
+                AdministratorActivity.mAdapter.notifyDataSetChanged()
+
+                //SplashActivity.getFireBaseDB()
             }
 
             myRef.addValueEventListener(object :ValueEventListener{
                 override fun onDataChange(snapshot: DataSnapshot) {
 
                     val snapshotSize = snapshot.childrenCount-1
-                    Log.d("국가수2", snapshotSize.toString())
+                    Log.d("FirebaseDbConnect", "국가수: ${snapshotSize.toString()}")
 
                     for(i in 0 .. snapshotSize){
                         val name = (snapshot.child(i.toString()).child("name").value).toString()

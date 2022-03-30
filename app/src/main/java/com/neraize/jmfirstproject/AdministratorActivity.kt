@@ -17,9 +17,9 @@ class AdministratorActivity : BaseActivity(), AdapterView.OnItemSelectedListener
         lateinit var spnPossibility:String
         lateinit var txtPossibility:TextView
         lateinit var btnSave:Button
+        lateinit var mAdapter: MyAdminListAdapter
     }
 
-    lateinit var mAdapter: MyAdminListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,7 +66,6 @@ class AdministratorActivity : BaseActivity(), AdapterView.OnItemSelectedListener
         txtProfileOut.setOnClickListener {
             finish()
         }
-
 
         mAdapter = MyAdminListAdapter(mContextt, R.layout.my_admin_list_item, SplashActivity.mCountryList)
         binding.myAdministratorListView.adapter = mAdapter

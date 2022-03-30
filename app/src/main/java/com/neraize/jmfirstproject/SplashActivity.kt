@@ -33,6 +33,7 @@ class SplashActivity : BaseActivity() {
 
             mCountryList.clear()
 
+            Log.d("SplashActivity", "getFireBaseDB진입")
             // 파이어 베이스 디비연결
             val database = FirebaseDatabase.getInstance()
             val myRef = database.getReference("country")
@@ -40,8 +41,10 @@ class SplashActivity : BaseActivity() {
             myRef.addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
 
+                    SplashActivity.mCountryList.clear()
+
                     val snapshotSize = snapshot.childrenCount-1
-                    Log.d("국가수", snapshotSize.toString())
+                    Log.d("SplashActivity", "국가수: ${snapshotSize.toString()}")
                     for(i in 0 .. snapshotSize){
 
                         val id = (snapshot.child(i.toString()).child("id").value).toString().toInt()
@@ -125,8 +128,10 @@ class SplashActivity : BaseActivity() {
         myRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
 
+                mCountryList.clear()
+
                 val snapshotSize = snapshot.childrenCount -1
-                Log.d("국가수", snapshotSize.toString())
+                Log.d("SplashActivity", "국가수:  ${snapshotSize.toString()}")
                 for(i in 0 .. snapshotSize){
 
                     val id = (snapshot.child(i.toString()).child("id").value).toString().toInt()

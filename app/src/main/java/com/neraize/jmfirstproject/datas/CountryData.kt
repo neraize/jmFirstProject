@@ -5,11 +5,11 @@ import java.io.Serializable
 class CountryData(
     val id:Int,
     val name:String,
-    val possibility:String,
+    var possibility:String,
     val information:String,
     val latitude:Double,
     val longitude:Double,
 
-):Serializable {
+    ):Serializable {
 
 }
