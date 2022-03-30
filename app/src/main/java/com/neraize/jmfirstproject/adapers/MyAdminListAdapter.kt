@@ -58,6 +58,14 @@ class MyAdminListAdapter(
                 FirebaseDbConnect.setUpdateMyCountry(AdministratorActivity.txtName.text.toString(), AdministratorActivity.spnPossibility)
                 Toast.makeText(mContext, "${AdministratorActivity.txtName.text} ${AdministratorActivity.spnPossibility}으로 변경완료", Toast.LENGTH_SHORT).show()
 
+                // 알람업데이트 리스트에 항목추가
+                AdministratorActivity.alarmUpdateList.add(AdministratorActivity.txtName.text.toString())
+
+                AdministratorActivity.alarmUpdateList.forEach { alarm->
+                    Log.d("MyAdminListAdapter","alarmUpdateList항목: ${alarm}")
+                }
+
+
 //                mList.remove(data)
 //                mList.clear()
 //                mList.addAll(SplashActivity.mCountryList)
@@ -74,6 +82,25 @@ class MyAdminListAdapter(
             }
             else{
                 Toast.makeText(mContext, "변경할 국가를 선택해주세요", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        // db추가 작업 다끝난후,  알람업데이트버튼 클릭시 -> firebase db에 업로드 ->업댓된 목록가지고, 변경된사항을 "나의 관심정보"에 반영하기
+//        AdministratorActivity.btnAlarmUpdate.setOnClickListener {
+//
+//            MainActivity.mAlarmList.forEach {
+//                myAlarm->
+//                AdministratorActivity.alarmUpdateList.forEach { updateAlarm->
+//
+//                    if(myAlarm.pushCountry == updateAlarm){
+//                        myAlarm.pushCountry = "New ${myAlarm.pushCountry}"
+//                    }
+//                }
+//            }
+
+            MainActivity.mAlarmList.forEach { myAlarm ->
+
+                Log.d("MyAdminListAdapter", "변경사항: ${myAlarm.pushCountry}")
             }
         }
 

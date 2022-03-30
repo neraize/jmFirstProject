@@ -18,6 +18,10 @@ class AdministratorActivity : BaseActivity(), AdapterView.OnItemSelectedListener
         lateinit var txtPossibility:TextView
         lateinit var btnSave:Button
         lateinit var mAdapter: MyAdminListAdapter
+
+        lateinit var btnAlarmUpdate:Button
+        lateinit var alarmUpdateVersion:String
+        var alarmUpdateList=ArrayList<String>()
     }
 
 
@@ -51,13 +55,13 @@ class AdministratorActivity : BaseActivity(), AdapterView.OnItemSelectedListener
 //                Toast.makeText(mContextt, "${txtName.text} ${spnPossibility}으로 변경완료", Toast.LENGTH_SHORT).show()
 //
 //        }
-
     }
 
     override fun SetValues() {
 
         txtName = binding.txtName
         btnSave = binding.btnSave
+        btnAlarmUpdate = binding.btnAlarmUpdate
 
         txtProfile.visibility = View.GONE
         txtProfileOut.visibility = View.VISIBLE

@@ -3,7 +3,7 @@ package com.neraize.jmfirstproject.datas
 import java.io.Serializable
 
 class MyAlarmData(
-    val pushCountry:String,
+    var pushCountry:String,
     val possibility:String,
 ){
 
